@@ -1,0 +1,6 @@
+
+alias start_cnuapp='VBoxHeadless --startvm local.dev.cashnetusa.com &'
+alias stop_cnuapp='VBoxManage controlvm "local.dev.cashnetusa.com" poweroff'
+
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
