@@ -1,6 +1,25 @@
 
-alias start_cnuapp='VBoxHeadless --startvm local.dev.cashnetusa.com &'
-alias stop_cnuapp='VBoxManage controlvm "local.dev.cashnetusa.com" poweroff'
+# This command tells termical to add color
+export CLICOLOR=1
+export LSCOLORS=ExFxCxDxBxegedabagacad
 
-source /usr/local/share/chruby/chruby.sh
-source /usr/local/share/chruby/auto.sh
+# Prompt definitions
+if [ -f ~/.dotfiles/.bash_prompt ]; then
+  source ~/.dotfiles/.bash_prompt
+fi
+
+# Assigned because of `brew doctor`
+export PATH=/usr/local/bin:$PATH
+
+##
+# Alias definitions
+##
+
+# General shortcuts
+alias lsa='clear && ls -al'
+
+# Enova-specific definitions
+if [ -f ~/.dotfiles/.enovarc ]; then
+  source ~/.dotfiles/.enovarc
+fi
+
