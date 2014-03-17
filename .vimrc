@@ -32,6 +32,8 @@ Bundle 'Lokaltog/vim-easymotion'
 
 "syntax
 Bundle 'cakebaker/scss-syntax.vim'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'mustache/vim-mustache-handlebars'
 
 " colors
 Bundle 'jnurmine/Zenburn'
