@@ -4,8 +4,10 @@
 [core]
 	editor = vim
 [alias]
+  # View abbreviated SHA, description, and history graph
+  logs = !"clear && git log --pretty=oneline --graph --abbrev-commit"
 	# View abbreviated SHA, description, and history graph of the latest 20 commits
-	l = !"clear && git log --pretty=oneline -n 20 --graph --abbrev-commit"
+	l = !"git logs -n 20"
 	# View the current working tree status using the short format
 	s = status -s
   pop = stash pop
@@ -19,10 +21,12 @@
 	p = !"git pull; git submodule foreach git pull origin master"
 	# Clone a repository including all submodules
 	c = clone --recursive
+  # Commit with message
+  cm = commit -m
 	# Commit all changes
 	ca = !"git add -A && git commit -av"
   # Commit all with message
-  cm = !"git ca -m"
+  cam = !"git ca -m"
 	# Switch to a branch, creating it if necessary
 	go = checkout -B
 	# Show verbose output about tags, branches or remotes
