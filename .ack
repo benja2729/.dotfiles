@@ -1,0 +1,6 @@
+--type-set=coffee=.coffee
+--type-set=js=.js
+--type-set=cuke=.feature
+--type-set=sass=.scss,.sass
+--type-set=handlebars=.handlebars,.hbs
+--type-set=hbs=.handlebars,.hbs

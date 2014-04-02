@@ -31,6 +31,8 @@ Bundle 'Shougo/neocomplcache.vim'
 Bundle 'Shougo/neosnippet.vim'
 Bundle 'Shougo/neosnippet-snippets'
 
+Bundle 'mileszs/ack.vim'
+
 Bundle 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-easymotion'
 
