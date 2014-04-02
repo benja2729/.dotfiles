@@ -3,5 +3,10 @@
 alias start_cnuapp='VBoxHeadless --startvm local.dev.cashnetusa.com &'
 alias stop_cnuapp='VBoxManage controlvm "local.dev.cashnetusa.com" poweroff'
 
+# Aperture aliases
+alias aperture='cd ~/projects/aperture'
+alias frontend='cd ~/projects/aperture/app/assets/javascripts'
+alias styles-'cd ~/projects/aperture/app/assets/stylesheets'
+
 source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
