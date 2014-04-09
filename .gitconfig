@@ -10,6 +10,8 @@
 	l = !"git logs -n 20"
 	# View the current working tree status using the short format
 	s = status -s
+  # Shortcut to add a message to a stash
+  stashm = !"git stash save"
   pop = stash pop
 	# Show the diff between the latest commit and the current state
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
