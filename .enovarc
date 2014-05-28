@@ -1,12 +1,20 @@
 #! /bin/bash
 
+export PATH=$HOME/local/bin:$PATH
+export PATH=$HOME/.node/bin:$PATH
+
 alias start_cnuapp='VBoxHeadless --startvm local.dev.cashnetusa.com &'
 alias stop_cnuapp='VBoxManage controlvm "local.dev.cashnetusa.com" poweroff'
 
 # Aperture aliases
-alias aperture='cd ~/projects/aperture'
-alias frontend='cd ~/projects/aperture/app/assets/javascripts'
-alias styles-'cd ~/projects/aperture/app/assets/stylesheets'
+alias aperture='cd ~/projects/aperture/'
+alias aperture_frontend='cd ~/projects/aperture/app/assets/'
+alias aperture_cucumber='cd ~/projects/aperture && bundle exec cucumber -r features/'
 
 source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
+
+# Fix for CISCO VPN
+# https://git.cashnetusa.com/neteng/anyconnect_scripts/tree/master/osx
+export FIX_VPN_POW=yes
+export FIX_VPN_MINIRAISER=yes
