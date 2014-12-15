@@ -1,6 +1,7 @@
 
 ## This file is set specificall for my local computer
 ## It is suggested to source the various scripts for your environment
+export EDITOR='vim'
 
 # This command tells termical to add color
 export CLICOLOR=1

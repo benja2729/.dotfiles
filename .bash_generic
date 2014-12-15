@@ -5,3 +5,4 @@ if [ -f `brew --prefix`/etc/bash_completion ]; then
 fi
 
 alias lsa='clear && ls -al'
+alias start_mongodb='mongod --config /usr/local/etc/mongod.conf'
