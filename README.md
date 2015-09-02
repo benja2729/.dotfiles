@@ -6,6 +6,30 @@ Installation
 ===========
 Simply clone this repo into your root directory and follow the instructions below for each of the respective features.
 
+Brew
+====
+*Install*
+`ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+
+*Libraries*
+Libraries in the approximate order that they are needed... hopefully
+
+- git
+- bash-completion
+ 
+- gcc48
+- gcc49
+- apple-gcc42
+ 
+- chruby
+- ruby-install
+- node
+ 
+- vim
+- wget
+- ack
+- watchman
+
 Terminal Configuration
 ======================
 If running this on a Mac, the easiest way to set-up the terminal invironment is to symlink the `.bash_profile` file.  
