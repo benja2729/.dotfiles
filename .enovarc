@@ -13,30 +13,38 @@ alias stop_cnuapp='VBoxManage controlvm "local.dev.cashnetusa.com" poweroff'
 # 8b aliases
 alias 8b='cd ~/projects/8b/'
 alias 8bconjure='~/projects/8b/gems/nconjure/bin/nconjure'
+alias 8bconjure_account_TX='8bconjure account create --brand cnu --region TX'
+alias 8bconjure_loan_cnu='8bconjure loan apply --issued --product=cnu'
 
 alias identity='8b && cd apps/identity'
 alias portfolio='8b && cd apps/portfolio'
 alias pgs='8b && cd apps/pgs'
 alias mef='8b && cd apps/mef'
 alias moriarty='8b && cd apps/moriarty'
+alias politburo='8b && cd apps/politburo'
 
 # be sure to do this for:
 # Identity, Portfolio, pgs, mef, and moriarty
-alias 8breset='git pull && bundle install && bundle exec rake db:reset db:migrate db:seed && touch tmp/restart.txt'
-alias identity_reset='identity && 8breset'
-alias portfolio_reset='portfolio && 8breset'
-alias pgs_reset='pgs && 8breset'
-alias mef_reset='mef && 8breset'
-alias moriarty_reset='moriarty && 8breset'
+alias reset_8b_app='git pull && bundle install && bundle exec rake db:reset db:migrate && touch tmp/restart.txt'
+alias identity_reset='identity && reset_8b_app'
+alias portfolio_reset='portfolio && reset_8b_app'
+alias pgs_reset='pgs && reset_8b_app'
+alias mef_reset='mef && reset_8b_app'
+alias moriarty_reset='moriarty && reset_8b_app'
+alias politburo_reset='politburo && reset_8b_app'
+alias 8breset='identity_reset && portfolio_reset && pgs_reset && mef_reset && moriarty_reset && politburo_reset'
 
 # Aperture aliases
 alias aperture='cd ~/projects/aperture/'
+alias aperture_restart='aperture && touch tmp/restart.txt'
 alias aperture_frontend='cd ~/projects/aperture/app/assets/javascripts'
 alias aperture_styles='cd ~/projects/aperture/app/assets/stylesheets/'
 alias aperture_vim='aperture_frontend && vim'
 alias aperture_cucumber='aperture && bundle exec cucumber -r features/'
 alias aperture_cucumber_live='aperture && LIVE_TESTS=1 bundle exec cucumber -r features/'
 alias aperture_tail='cd ~/projects/aperture/ && tail -f log/*'
+alias aperture_clients_local='cd ~/projects/aperture/etc/development && unlink clients.yml && ln -s local.clients.yml clients.yml && lsa && aperture_restart'
+alias aperture_clients_oak='cd ~/projects/aperture/etc/development && unlink clients.yml && ln -s oak.clients.yml clients.yml && lsa && aperture_restart'
 
 source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh

@@ -36,6 +36,8 @@ Bundle 'mileszs/ack.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-easymotion'
 
+Bundle 'rizzatti/dash.vim'
+
 "syntax
 Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'kchmck/vim-coffee-script'
@@ -185,6 +187,17 @@ nmap <leader>cu <Plug>CommentaryUndo
 " splitjoin plugin
 nmap zj :SplitjoinSplit<cr>
 nmap zk :SplitjoinJoin<cr>
+
+" dash plugin
+if has('autocmd')
+  augroup Dash
+    autocmd!
+    autocmd FileType coffee :DashKeywords javascript ember jquery moment nodejs angularjs bootstrap coffee
+    autocmd FileType javascript :DashKeywords javascript ember jquery moment nodejs angularjs bootstrap
+  augroup END
+endif
+nmap <silent> <leader>d <Plug>DashSearch
+nmap <silent> <leader>D <Plug>DashGlobalSearch
 
 " formatted paste
 nmap <leader>p pV`]=
