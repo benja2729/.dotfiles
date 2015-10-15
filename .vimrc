@@ -37,6 +37,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'Lokaltog/vim-easymotion'
 
 Bundle 'rizzatti/dash.vim'
+Bundle 'bling/vim-airline'
 
 "syntax
 Bundle 'cakebaker/scss-syntax.vim'
@@ -60,7 +61,7 @@ syntax enable
 set background=dark
 
 " let g:zenburn_high_Contrast=1
-" colorscheme zenburn 
+" colorscheme zenburn
 " colorscheme molokai
 " colorscheme hemisu
 
@@ -106,7 +107,7 @@ au BufRead,BufNewFile *.scss set filetype=scss
 au BufRead,BufNewFile *.sass set filetype=scss
 
 " status bar
-set statusline=\ %.99f\ %<%h%m%r%w%=%l/%L\ %P
+" set statusline=\ %.99f\ %<%h%m%r%w%=%l/%L\ %P
 
 " utf 8, just incase
 scriptencoding utf-8
@@ -171,7 +172,7 @@ let g:neocomplcache_min_syntax_length = 3
 
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
- 
+
 " nerdtree tab navigation
 map <F1> :tabprev<CR>
 map <F2> :tabnext<CR>
