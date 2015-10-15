@@ -37,10 +37,15 @@ If running this on a Mac, the easiest way to set-up the terminal invironment is 
 
 The `.bash_profile` and `.bashrc` files are set to source certain files depending on environment. This makes loading the environment a bit more modular.
 
-Peppermint Terminal Theme
+Terminal Theme
 =========================
+
+- Peppermint
 I originally found the theme [ here ]( http://noahfrederick.com/blog/2011/lion-terminal-theme-peppermint/ 'Pepperming theme' ).  
 You will need to import it through the Terminal Preferences interface.
+
+- Solarized
+Download and instructions on the [ official website]( http://ethanschoonover.com/solarized )
 
 Vim configuration
 =================

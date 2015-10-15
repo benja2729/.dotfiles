@@ -46,28 +46,36 @@ Bundle 'mustache/vim-mustache-handlebars'
 " colors
 Bundle 'jnurmine/Zenburn'
 Bundle 'tomasr/molokai'
+Bundle 'altercation/vim-colors-solarized'
 Bundle 'noahfrederick/vim-hemisu'
 "===== END MY BUNDLES ====="
 
 " filetype plugin on
 " filetype plugin indent on
-" syntax on
+syntax on
+syntax enable
 
 " colors
-set t_Co=256
+" set t_Co=256
 set background=dark
 
 " let g:zenburn_high_Contrast=1
 " colorscheme zenburn 
-colorscheme molokai
+" colorscheme molokai
 " colorscheme hemisu
-let g:rehash256=1
+
+" http://ethanschoonover.com/solarized
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+colorscheme solarized
+
+" let g:rehash256=1
 
 " settings
 set mouse=a                     " because mouse
 set number                      " line numbers
 set nobackup                    " don't do backups
-" set ruler                       " show cursor position
+set ruler                       " show cursor position
 set nowritebackup               " no backups
 set cursorline
 set noswapfile                  " no swapfiles
@@ -78,7 +86,7 @@ set shiftwidth=2                " two-space tabs
 set expandtab                   " use spaces for tabs
 " set autoread                    " autoread
 set incsearch                   " show search matches while you type
-set ignorecase                  " ignore case when searching
+" set ignorecase                  " ignore case when searching
 set smartcase                   " ignore search case if all lowercase
 set hlsearch                    " highlight search terms
 set gdefault                    " default to global replace
@@ -91,7 +99,7 @@ set lazyredraw                  " do not redraw while executing macros
 set title                       " set the title
 set shortmess+=atI              " eliminate annoying 'Press ENTER or type command to continue' notices
 " set laststatus=1                " status bar only shows if multiple files are open
-set nolist                      " hide invisible characters
+" set nolist                      " hide invisible characters
 
 " indenting
 au BufRead,BufNewFile *.scss set filetype=scss
