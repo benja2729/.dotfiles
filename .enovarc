@@ -1,53 +1,43 @@
 #! /bin/bash
 
-export PATH=$HOME/projects/8b/bin:$PATH
-export PATH=$HOME/local/bin:$PATH
-export PATH=$HOME/.node/bin:$PATH
+export NBPATH=$HOME/projects/8b
+export NBAPP_PATH=$NBPATH/apps
+export GOPATH=$HOME/go
+export PATH=$NBPATH/bin:$PATH
 
-source /usr/local/share/chruby/chruby.sh
-source /usr/local/share/chruby/auto.sh
+if [ -f "/usr/local/share/chruby/chruby.sh" ]; then
+  source /usr/local/share/chruby/chruby.sh
+  source /usr/local/share/chruby/auto.sh
+fi
 
-alias start_cnuapp='VBoxHeadless --startvm local.dev.cashnetusa.com &'
-alias stop_cnuapp='VBoxManage controlvm "local.dev.cashnetusa.com" poweroff'
+alias start_cnuapp="VBoxHeadless --startvm local.dev.cashnetusa.com &"
+alias stop_cnuapp="VBoxManage controlvm "local.dev.cashnetusa.com" poweroff"
 
 # 8b aliases
-alias 8b='cd ~/projects/8b/'
-alias 8bconjure='~/projects/8b/gems/nconjure/bin/nconjure'
-alias 8bconjure_account_TX='8bconjure account create --brand cnu --region TX'
-alias 8bconjure_loan_cnu='8bconjure loan apply --issued --product=cnu'
+alias 8b="cd $NBPATH"
+alias 8bconjure="be $NBPATH/gems/nconjure/bin/nconjure"
+alias 8bconjure_account_TX="8bconjure account create --brand cnu --region TX"
+alias 8bconjure_loan_cnu="8bconjure loan apply --issued --product=cnu"
 
-alias identity='8b && cd apps/identity'
-alias portfolio='8b && cd apps/portfolio'
-alias pgs='8b && cd apps/pgs'
-alias mef='8b && cd apps/mef'
-alias moriarty='8b && cd apps/moriarty'
-alias politburo='8b && cd apps/politburo'
+alias identity="cd $NBAPP_PATH/identity && echo 'moved to identity'"
+alias portfolio="cd $NBAPP_PATH/portfolio && echo 'moved to politburo'"
+alias pgs="cd $NBAPP_PATH/pgs && echo 'moved to pgs'"
+alias mef="cd $NBAPP_PATH/mef && echo 'moved to mef'"
+alias moriarty="cd $NBAPP_PATH/moriarty && echo 'moved to moriarty'"
+alias politburo="cd $NBAPP_PATH/politburo && echo 'moved to politburo'"
 
 # be sure to do this for:
 # Identity, Portfolio, pgs, mef, and moriarty
-alias reset_8b_app='git pull && bundle install && bundle exec rake db:reset db:migrate && touch tmp/restart.txt'
-alias identity_reset='identity && reset_8b_app'
-alias portfolio_reset='portfolio && reset_8b_app'
-alias pgs_reset='pgs && reset_8b_app'
-alias mef_reset='mef && reset_8b_app'
-alias moriarty_reset='moriarty && reset_8b_app'
-alias politburo_reset='politburo && reset_8b_app'
-alias 8breset='identity_reset && portfolio_reset && pgs_reset && mef_reset && moriarty_reset && politburo_reset'
-
-# Aperture aliases
-alias aperture='cd ~/projects/aperture/'
-alias aperture_restart='aperture && touch tmp/restart.txt'
-alias aperture_frontend='cd ~/projects/aperture/app/assets/javascripts'
-alias aperture_styles='cd ~/projects/aperture/app/assets/stylesheets/'
-alias aperture_vim='aperture_frontend && vim'
-alias aperture_cucumber='aperture && bundle exec cucumber -r features/'
-alias aperture_cucumber_live='aperture && LIVE_TESTS=1 bundle exec cucumber -r features/'
-alias aperture_tail='cd ~/projects/aperture/ && tail -f log/*'
-alias aperture_clients_local='cd ~/projects/aperture/etc/development && unlink clients.yml && ln -s local.clients.yml clients.yml && lsa && aperture_restart'
-alias aperture_clients_oak='cd ~/projects/aperture/etc/development && unlink clients.yml && ln -s oak.clients.yml clients.yml && lsa && aperture_restart'
-
-source /usr/local/share/chruby/chruby.sh
-source /usr/local/share/chruby/auto.sh
+alias db_reset="echo 'resetting database' && be rake db:reset"
+alias db_migrate="echo 'migrating database' && be rake db:migrate"
+alias reset_8b_app="git pull && bundle install && db_reset && db_migrate && touch tmp/restart.txt"
+alias identity_reset="clear && identity && reset_8b_app"
+alias portfolio_reset="clear && portfolio && reset_8b_app"
+alias pgs_reset="clear && pgs && reset_8b_app"
+alias mef_reset="clear && mef && reset_8b_app"
+alias moriarty_reset="clear && moriarty && reset_8b_app"
+alias politburo_reset="clear && politburo && reset_8b_app"
+alias 8breset="identity_reset && portfolio_reset && pgs_reset && mef_reset && moriarty_reset && politburo_reset"
 
 # Fix for CISCO VPN
 # https://git.cashnetusa.com/neteng/anyconnect_scripts/tree/master/osx

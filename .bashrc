@@ -5,7 +5,7 @@ export EDITOR='vim'
 alias be='bundle exec'
 PATH=$HOME/bin:$PATH
 
-# This command tells termical to add color
+# This command tells terminal to add color
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
