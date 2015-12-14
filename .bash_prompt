@@ -43,7 +43,7 @@ function color_for_path() {
     # default color
     local dircolor=$BOLD$BLUE
     local here="$1"
-    local perms=$(stat -f "%p" "$here")
+    local perms=$(stat -f "%A" "$here")
     if [[ -L $here ]]; then
         # dir is a symlink
         dircolor=$BOLD$CYAN
