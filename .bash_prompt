@@ -118,6 +118,7 @@ case "$HOSTNAME" in
 esac
 
 # enable fancy git prompt if possible
+# Sourced from https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
 # TODO: deal with distros that don't have this already sourced?
 #    *	the working copy is dirty
 #    +	changes have been staged in the index
@@ -128,11 +129,12 @@ esac
 #    <	local repo is behind origin
 if [ -n "$(type -t __git_ps1)" ] && [ "$(type -t __git_ps1)" = function ]; then
     # enable extra git info
-    GIT_PS1_SHOWDIRTYSTATE=1        #... untagged(*) and staged(+) changes
-    GIT_PS1_SHOWSTASHSTATE=1        #... stashed($) changes
-    GIT_PS1_SHOWUNTRACKEDFILES=1    #... untracked files(%)
-    GIT_PS1_SHOWUPSTREAM=1          # trying this out too
-    GIT_PS1_SHOWCOLORHINTS=1        # not sure what this does
+    GIT_PS1_SHOWDIRTYSTATE=1                #... untagged(*) and staged(+) changes
+    GIT_PS1_SHOWSTASHSTATE=1                #... stashed($) changes
+    GIT_PS1_SHOWUNTRACKEDFILES=1            #... untracked files(%)
+    GIT_PS1_SHOWUPSTREAM="verbose"          #... commits ahead/behind upstream (u+1)
+    GIT_PS1_SHOWCOLORHINTS=1                # not sure what this does
+    GIT_PS1_DESCRIBE_STYLE="branch"
     gitsection=" \[$BOLD$RED\]\$(__git_ps1 '(%s)')"
 else
     gitsection=""
