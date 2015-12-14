@@ -1,57 +1,175 @@
-#! /bin/bash
+#!/bin/bash
+# build a fancy bash prompt with dynamic color
+# (the shebang is only there to get vim to use bash syntax highlighting)
 
-# @gf3’s Sexy Bash Prompt, inspired by “Extravagant Zsh Prompt”
-# Shamelessly copied from https://github.com/gf3/dotfiles
-# Screenshot: http://i.imgur.com/s0Blh.png
+# debug helper
+# trace() { echo "$@" 1>&2; }
 
-if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
-	export TERM=gnome-256color
-elif infocmp xterm-256color >/dev/null 2>&1; then
-	export TERM=xterm-256color
-fi
+# ansi styling
+# Originally copied from https://github.com/nathanic/dotfiles/blob/master/config/bash_prompt
+#   via blog post at: http://nathanic.org/posts/2013/shell-prompt-spider-sense/
+# following the advice of http://mywiki.wooledge.org/BashFAQ/037
+# with some help from http://wiki.bash-hackers.org/scripting/terminalcodes
+# todo maybe define more colors like http://mediadoneright.com/content/ultimate-git-ps1-bash-prompt
+RESET=$(tput sgr0)
+BOLD=$(tput bold)
+NOBOLD=$(tput rmso)
 
-if tput setaf 1 &> /dev/null; then
-	tput sgr0
-	if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
-		MAGENTA=$(tput setaf 9)
-		ORANGE=$(tput setaf 172)
-		GREEN=$(tput setaf 190)
-		PURPLE=$(tput setaf 141)
-		WHITE=$(tput setaf 0)
-	else
-		MAGENTA=$(tput setaf 5)
-		ORANGE=$(tput setaf 4)
-		GREEN=$(tput setaf 2)
-		PURPLE=$(tput setaf 1)
-		WHITE=$(tput setaf 7)
-	fi
-	BOLD=$(tput bold)
-	RESET=$(tput sgr0)
+BLACK=$(tput setaf 0)
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+YELLOW=$(tput setaf 3)
+BLUE=$(tput setaf 4)
+MAGENTA=$(tput setaf 5)
+CYAN=$(tput setaf 6)
+WHITE=$(tput setaf 7)
+PLAIN=$(tput setaf 9)
+
+
+# /home/username/foo -> ~/foo
+function unexpand_home_tilde() {
+    # add trailing slash to distinguish from /home/usernameOFSOMEONEELSE
+    local here=$1/
+    # substitute ~/ for $HOME/ 
+    local friendly=${here/$HOME\//\~\/}
+    # remove the trailing slash before emitting
+    friendly=${friendly/%\/}
+    echo $friendly
+}
+
+# decide what color a path should be based on some attributes about it
+# echos an ANSI sequence
+function color_for_path() {
+    # default color
+    local dircolor=$BOLD$BLUE
+    local here="$1"
+    local perms=$(stat -f "%p" "$here")
+    if [[ -L $here ]]; then
+        # dir is a symlink
+        dircolor=$BOLD$CYAN
+    elif [[ "$perms" -eq 700 ]]; then
+        # private-only dir
+        dircolor=$MAGENTA
+    elif [[ "$perms" -eq 777 ]]; then
+        # world-writable dir
+        dircolor=$YELLOW
+    elif [[ ! -w "$here" ]]; then
+        # dir not writable for me
+        dircolor=$RESET
+    fi
+    # TODO any other cases?  non-owned dir?  group-writable dir?
+    # sticky bits?  (stat returns 1777 for /tmp)
+    echo "$dircolor"
+}
+
+
+# echos a path with each segment individually colorized
+# also inserts \[ \] sequences, for use in $PS1
+function colorize_path_segments() {
+    local path="$(unexpand_home_tilde "$1")"
+    IFS='/' read -ra segs <<< "$path"
+
+    local accum=""
+    local output=""
+
+    for seg in "${segs[@]}"; do
+        if [[ $seg == '~' ]]; then
+            accum=$HOME
+        else
+            accum="$accum/$seg"
+        fi
+        local col=$(color_for_path "$accum")
+        output="\[$RESET\]$output\[$RESET$col\]$seg\[$BOLD$BLUE\]/"
+    done
+
+    # remove trailing slash
+    output=${output/%\/}
+    echo "$output\[$RESET\]"
+}
+
+
+
+######################################################################
+# Initialize a series of variables, related to prompt config
+# these are static for the life of a shell
+case "$USER" in
+    ben|bfischer|Ben|Benjamin|"Benjamin Fischer") 
+        usercolor=$GREEN
+        terminator=∫
+        ;;
+    root|Administrator) 
+        usercolor=$BOLD$RED;
+        terminator='#'
+        ;;
+    *)
+        usercolor=$BOLD$YELLOW
+        terminator='$'
+        ;;
+esac
+
+case "$HOSTNAME" in 
+    wintermute)     hostcolor=$BOLD$WHITE;;
+    dev1)           hostcolor=$BOLD$CYAN ;;
+    xathan)         hostcolor=$MAGENTA ;;
+    dathan)         hostcolor=${BOLD}${YELLOW} ;;
+    hapax)          hostcolor=${BOLD}${WHITE} ;;
+    gir)            ;;
+    *)              hostcolor=$GREEN ;;
+esac
+
+# enable fancy git prompt if possible
+# TODO: deal with distros that don't have this already sourced?
+#    *	the working copy is dirty
+#    +	changes have been staged in the index
+#    $	there are stashed changes
+#    %	there are untracked files
+#    >	local repo is ahead of origin
+#    =	local repo is at par with origin
+#    <	local repo is behind origin
+if [ -n "$(type -t __git_ps1)" ] && [ "$(type -t __git_ps1)" = function ]; then
+    # enable extra git info
+    GIT_PS1_SHOWDIRTYSTATE=1        #... untagged(*) and staged(+) changes
+    GIT_PS1_SHOWSTASHSTATE=1        #... stashed($) changes
+    GIT_PS1_SHOWUNTRACKEDFILES=1    #... untracked files(%)
+    GIT_PS1_SHOWUPSTREAM=1          # trying this out too
+    GIT_PS1_SHOWCOLORHINTS=1        # not sure what this does
+    gitsection=" \[$BOLD$RED\]\$(__git_ps1 '(%s)')"
 else
-	MAGENTA="\033[1;31m"
-	ORANGE="\033[1;33m"
-	GREEN="\033[1;32m"
-	PURPLE="\033[1;35m"
-	WHITE="\033[1;37m"
-	BOLD=""
-	RESET="\033[m"
+    gitsection=""
 fi
 
-export MAGENTA
-export ORANGE
-export GREEN
-export PURPLE
-export WHITE
-export BOLD
-export RESET
 
-function parse_git_dirty() {
-	[[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "*"
+# identify chroot if we're in one, to prefix the prompt below
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+function build_prompt() {
+    local p="${debian_chroot:+($debian_chroot)}"
+    p="$p\[$usercolor\]\u"
+    p="$p\[$RESET$YELLOW\]@"
+    p="$p\[$hostcolor\]\h"
+    p="$p\[$RESET\]:"
+    p=$p$(colorize_path_segments "`pwd`")
+    p="$p$gitsection"
+    p="$p\[$RESET\]$terminator "
+
+    echo "$p"
 }
 
-function parse_git_branch() {
-	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
-}
+case "$TERM" in
+    # support non-color fallback for unknown terminals
+    # TODO: find more reliable method of detecting color capability
+    # maybe $(tput colors)...  does cygwin have tput?
+    konsole|konsole-256color|xterm-color|xterm-256color|xterm|cygwin|linux|screen|screen-256color) 
+        export PROMPT_COMMAND='PS1="$(build_prompt)"'
+        ;;
+    *) 
+        PS1='${prefix}\u@\h:\w\$ '
+        ;;
+esac
 
-export PS1="\[${BOLD}${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]\n\$ \[$RESET\]"
-export PS2="\[$ORANGE\]→ \[$RESET\]"
+# TODO consider refactoring for more sanitary scoping
+# right now this thing creates a lot of variables it just leaves around.
+# either recalculate every time and use function-local variables,
+# or perhaps prefix all the variables with something unlikely to collide.
