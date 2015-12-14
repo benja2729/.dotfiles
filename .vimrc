@@ -106,6 +106,11 @@ set shortmess+=atI              " eliminate annoying 'Press ENTER or type comman
 au BufRead,BufNewFile *.scss set filetype=scss
 au BufRead,BufNewFile *.sass set filetype=scss
 
+" spell checking
+au BufRead,BufNewFile *.md        set spell
+au BufRead,BufNewFile *.markdown  set spell
+au BufRead,BufNewFile *.txt       set spell
+
 " status bar
 " set statusline=\ %.99f\ %<%h%m%r%w%=%l/%L\ %P
 
