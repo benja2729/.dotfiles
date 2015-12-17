@@ -1,3 +1,9 @@
+
+"===== TEACH VIM TO FISH ====="
+if &shell =~# 'fish$'
+  set shell=sh
+endif
+
 "===== START VUNDLE CONFIG ====="
 " For installation instructions go to https://github.com/gmarik/Vundle.vim
 set nocompatible              " be iMproved, required
@@ -43,6 +49,7 @@ Bundle 'bling/vim-airline'
 Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'mustache/vim-mustache-handlebars'
+Bundle 'dag/vim-fish'
 
 " colors
 Bundle 'jnurmine/Zenburn'
@@ -51,8 +58,13 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'noahfrederick/vim-hemisu'
 "===== END MY BUNDLES ====="
 
+"==============================
+"     bundles to add
+"==============================
+" Bundle 'SirVer/ultisnips'
+
 " filetype plugin on
-" filetype plugin indent on
+filetype plugin indent on
 syntax on
 syntax enable
 
@@ -140,6 +152,7 @@ map <S-Enter> O<Esc>j
 map <CR> o<Esc>
 
 " EasyMotion
+"
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 map  n <Plug>(easymotion-next)
@@ -201,6 +214,15 @@ nmap <leader>cu <Plug>CommentaryUndo
 " splitjoin plugin
 nmap zj :SplitjoinSplit<cr>
 nmap zk :SplitjoinJoin<cr>
+
+" vim-fish
+if has('autocmd')
+  augroup Fish
+    compiler fish
+    setlocal textwidth=79
+    " setlocal foldmethod=expr
+  augroup END
+endif
 
 " dash plugin
 if has('autocmd')
