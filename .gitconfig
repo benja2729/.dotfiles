@@ -1,8 +1,6 @@
 [user]
 	name = Ben Fischer
-	email = bfischer@enova.com
-[core]
-	editor = vim
+	email = benjamin.fischer@servicenow.com
 [alias]
   # View abbreviated SHA, description, and history graph
   logs = !"clear && git log --pretty=oneline --graph --abbrev-commit"
@@ -55,6 +53,7 @@
 	whitespace = fix
 
 [core]
+	editor = vim
 	# Use custom `.gitignore` and `.gitattributes`
 	excludesfile = ~/.gitignore
 	attributesfile = ~/.gitattributes
