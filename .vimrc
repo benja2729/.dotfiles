@@ -1,9 +1,4 @@
 
-"===== TEACH VIM TO FISH ====="
-if &shell =~# 'fish$'
-  set shell=sh
-endif
-
 "===== START VUNDLE CONFIG ====="
 " For installation instructions go to https://github.com/gmarik/Vundle.vim
 set nocompatible              " be iMproved, required
@@ -49,7 +44,6 @@ Bundle 'bling/vim-airline'
 Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'mustache/vim-mustache-handlebars'
-Bundle 'dag/vim-fish'
 
 " colors
 Bundle 'jnurmine/Zenburn'
@@ -215,15 +209,6 @@ nmap <leader>cu <Plug>CommentaryUndo
 nmap zj :SplitjoinSplit<cr>
 nmap zk :SplitjoinJoin<cr>
 
-" vim-fish
-if has('autocmd')
-  augroup Fish
-    compiler fish
-    setlocal textwidth=79
-    " setlocal foldmethod=expr
-  augroup END
-endif
-
 " dash plugin
 if has('autocmd')
   augroup Dash
@@ -264,37 +249,3 @@ function! SetCursorPosition()
     endif
   end
 endfunction
-
-" ctrl p for cnuapp
-set wildignore+=/media/**,*//home/alan/media/**,*//home/alan/Music/**,*/*.scssc
-set wildignore+=*.pyc,*/*.scssc
-set wildignore+=*/cabar/*,*/cnu_active_record/*,*/cnuapp_ci/*,*/cnuapp_doc/*,*/cnuapp_env/*
-set wildignore+=*/cnuapp_qa/*,*/cnuapp_rack/*,*/cnu_bloom/*,*/cnu_brand/*,*/cnu_cluster/*
-set wildignore+=*/cnu_config/*,*/cnu_content/*,*/cnu_database/*,*/cnu_gems/*,*/cnu_ivr/*
-set wildignore+=*/cnu_ldap/*,*/cnu_locale/*,*/cnu_logger/*,*/cnu_memcache/*,*/cnu_perf/*
-set wildignore+=*/cnu_pg/*,*/cnu_product_offering/*,*/cnu_rails_app/*,*/cnu_regexp/*
-set wildignore+=*/cnu_ruby_build/*,*/cnu_ruby_core/*,*/cnu_ruby_lib/*,*/cnu_scm/*
-set wildignore+=*/cnu_selenium/*,*/cnu_service/*,*/cnu_space/*,*/cnu_test/*,*/contenter_api/*
-set wildignore+=*/cookbooks/*,*/db_global/*,*/doc/*,*/enf_app/*,*/enf_log/*,*/lsws-3.3.14/*
-set wildignore+=*/mod_rails/*,*/rails-1.2/*,*/red_steak/*,*/screenshots/*,*/shout_trace/*
-set wildignore+=*/sol_api/*,*/trick_serial/*,*/waffles/*,*/wtf/*
-set wildignore+=*static/CACHE/css/*
-set wildignore+=*/cnuapp/apache/*,*/cnuapp/bin/*
-set wildignore+=*/cnuapp/debian/*,*/cnuapp/gems/*,*/cnuapp/gui/*,*/cnuapp/include/*
-set wildignore+=*/cnuapp/locproot/*,*/cnuapp/lsws/*,*/cnuapp/noderoot/*
-set wildignore+=*/cnuapp/plugins/*,*/cnuapp/queries/*,*/cnuapp/Rakefile/*,*/cnuapp/Rakefile.US/*
-set wildignore+=*/cnuapp/result.GB/*,*/cnuapp/result.GB.fail/*,*/cnuapp/result.GB.last/*
-set wildignore+=*/cnuapp/result.GB.pass/*,*/cnuapp/script/*,*/cnuapp/src/*
-set wildignore+=*/cnuapp/tmp/*,*/cnuapp/tools/*,*/cnuapp/typeroot/*,*/cnuapp/var/*
-set wildignore+=*/cnuapp/vendor/*
-set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg
-let g:ctrlp_max_files =0
-let g:ctrlp_max_depth =1000
-let g:ctrlp_max_height = 50
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_clear_cache_on_exit = 0
-let g:CommandTMaxFiles=50000
-let g:ctrlp_open_multiple_files = 't'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|\.hg$\|\.svn$',
-  \}
